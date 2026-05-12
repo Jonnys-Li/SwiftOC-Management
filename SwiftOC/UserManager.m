@@ -30,8 +30,17 @@
 }
 
 - (void)removeUserById:(NSInteger)userId {
-    // v1.0.0 original: no bounds check — will crash if userId not found
-    [self.users removeObjectAtIndex:userId];
+    // feature/add-validation: use indexOfObjectPassingTest for safer lookup
+    NSInteger index = [self.users indexOfObjectPassingTest:^BOOL(UserModel *obj, NSUInteger idx, BOOL *stop) {
+        if (obj.userId == userId) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    if (index != NSNotFound) {
+        [self.users removeObjectAtIndex:index];
+    }
 }
 
 - (UserModel *)findUserById:(NSInteger)userId {
