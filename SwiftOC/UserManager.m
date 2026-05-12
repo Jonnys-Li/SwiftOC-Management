@@ -30,8 +30,14 @@
 }
 
 - (void)removeUserById:(NSInteger)userId {
-    // v1.0.0 original: no bounds check — will crash if userId not found
-    [self.users removeObjectAtIndex:userId];
+    // hotfix/1.0.1: add bounds check to prevent crash
+    for (NSInteger i = 0; i < self.users.count; i++) {
+        if (self.users[i].userId == userId) {
+            [self.users removeObjectAtIndex:i];
+            return;
+        }
+    }
+    NSLog(@"Warning: user %ld not found, skipping removal", (long)userId);
 }
 
 - (UserModel *)findUserById:(NSInteger)userId {
