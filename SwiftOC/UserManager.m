@@ -30,7 +30,7 @@
 }
 
 - (void)removeUserById:(NSInteger)userId {
-    // feature/add-validation: use indexOfObjectPassingTest for safer lookup
+    // Resolved: combine feature's indexOfObjectPassingTest + hotfix's warning log
     NSInteger index = [self.users indexOfObjectPassingTest:^BOOL(UserModel *obj, NSUInteger idx, BOOL *stop) {
         if (obj.userId == userId) {
             *stop = YES;
@@ -40,6 +40,8 @@
     }];
     if (index != NSNotFound) {
         [self.users removeObjectAtIndex:index];
+    } else {
+        NSLog(@"Warning: user %ld not found, skipping removal", (long)userId);
     }
 }
 

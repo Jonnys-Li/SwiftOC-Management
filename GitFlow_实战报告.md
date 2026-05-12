@@ -202,25 +202,26 @@ git push origin develop
 ## 5. 最终分支状态图
 
 ```
-* f065242 (develop) resolve conflict - combine both approaches
+*   [develop] merge: resolve conflict in removeUserById
 |\
-* \ c0023e4 merge add-validation into develop
-|\ \
-| * | f339522 (feature/add-validation) use indexOfObjectPassingTest
-|/ /
-| | * 8983f94 (main, v1.0.1) hotfix release v1.0.1
-| |/|
-|/|/
-| * 51b3eba (hotfix/1.0.1) add bounds check
+| * [hotfix/1.0.1] hotfix: add bounds check in removeUserById
+| * [main] hotfix: release v1.0.1 - fix removeUserById crash (tag: v1.0.1)
+* | [feature/add-validation] feat: use indexOfObjectPassingTest for safe removal
+* | [develop] feat: merge add-validation into develop
 |/
-* ba9b301 (v1.0.0, release/1.0.0, feature/user-management) initial commit
+* [release/1.0.0] chore: release v1.0.0 (tag: v1.0.0)
+* [develop] feat: merge UserManager feature into develop
+* [feature/user-management] feat: integrate UserManager into ViewController
+* [feature/user-management] feat: add UserManager - singleton with CRUD operations
+* [feature/user-management] feat: add UserModel - user data model
+* [main] feat: initial project setup
 ```
 
-| Tag | 分支 | 状态 |
-|---|---|---|
-| `v1.0.0` | main | 初始发布（含 crash bug） |
-| `v1.0.1` | main | 🎯 紧急修复后（bounds check added） |
-| — | develop | feature 合并 + hotfix 合并（冲突已解决） |
+| Tag | 分支 | 状态 | 关键内容 |
+|---|---|---|---|
+| `v1.0.0` | main | 初始发布 | 含 crash bug (`removeObjectAtIndex` 无边界检查) |
+| `v1.0.1` | main | ✅ 紧急修复 | 加 for-loop 边界检查 + warning 日志 |
+| — | develop | ✅ 已解决冲突 | 合并了 feature 的 `indexOfObjectPassingTest` + hotfix 的 warning |
 
 ---
 
